@@ -1,0 +1,24 @@
+{
+  "name": "dsh-onmyoji-guide",
+  "version": "1.0.2",
+  "private": true,
+  "type": "module",
+  "description": "Onmyoji helper for DeepSeek Harness: shikigami/soul lookup, crit and panel math, NetEase Dashen guide search, intro cards.",
+  "license": "MIT",
+  "exports": {
+    ".": "./dsh/index.js",
+    "./locale/*.json": "./dsh/locale/*.json",
+    "./icon": "./dsh/icon.svg"
+  },
+  "files": [
+    "dsh/index.js",
+    "dsh/cordis.patch.yml",
+    "dsh/locale/*.json",
+    "dsh/icon.svg"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./dsh/cordis.patch.yml"
+    }
+  }
+}
