@@ -14,7 +14,9 @@
     "dsh/index.js",
     "dsh/cordis.patch.yml",
     "dsh/locale/*.json",
-    "dsh/icon.svg"
+    "dsh/icon.svg",
+    "dsh/README.md",
+    "data"
   ],
   "dsh": {
     "bundle": {
