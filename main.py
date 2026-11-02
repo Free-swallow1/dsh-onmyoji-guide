@@ -228,7 +228,7 @@ class YYSPlugin(Star):
     async def _handle_image_message(self, event, img_comp, text):
         img_bytes = await self._image_bytes(img_comp)
         if not img_bytes:
-            return "图片下载失败了，可能是链接过期，重发一张试试？"
+            return "图片下载失败了，可能是链接过期，重发一张试试？", []
         typ, name, item, source, extra = await self._identify(event, img_bytes, text)
         ocr = extra if isinstance(extra, str) else (extra[1] if isinstance(extra, tuple) else "")
         conf = None
@@ -402,11 +402,20 @@ class YYSPlugin(Star):
                 break
         imgs = []
         if img_comp is not None and self._cfg("enable_image", True):
-            reply = await self._handle_image_message(event, img_comp, text)
+            reply, imgs = await self._handle_image_message(event, img_comp, text)
         else:
             quick = self._match_reply(text)
             if quick and self._cfg("quick_card", True):
                 reply = quick
+                chars, souls = self.kb.mentions(text)
+                if chars:
+                    card = self.kb.card_path("char", chars[0]["id"])
+                    if card:
+                        reply, imgs = "", [card]
+                elif souls:
+                    card = self.kb.card_path("soul", souls[0]["id"])
+                    if card:
+                        reply, imgs = "", [card]
             else:
                 if not text:
                     return None
@@ -423,9 +432,10 @@ class YYSPlugin(Star):
                         reply = self.kb.soul_text(souls[0])
                     else:
                         reply = "让我查一下……这个我暂时没把握，换个说法或直接发式神名给我？"
-        if reply:
-            self._remember(gid, text, reply)
-            return self._truncate(reply), imgs
+        if reply or imgs:
+            if reply:
+                self._remember(gid, text, reply)
+            return self._truncate(reply or ""), imgs
         return None
 
     # ---------------- 指令 ----------------
@@ -474,6 +484,21 @@ class YYSPlugin(Star):
         ):
             if msg.startswith(prefix):
                 rest = msg[len(prefix):].strip()
+                card = ""
+                if prefix == "技能":
+                    c0, _ = self.kb.find_char(rest)
+                    card = self.kb.card_path("char", c0["id"]) if c0 else ""
+                elif prefix == "御魂":
+                    s0, _ = self.kb.find_soul(rest)
+                    card = self.kb.card_path("soul", s0["id"]) if s0 else ""
+                elif prefix == "阴阳师":
+                    for nm, oid in (("晴明",10),("神乐",11),("八百比丘尼",12),("源博雅",13),("源赖光",15),("藤原道长",16)):
+                        if nm in rest:
+                            card = self.kb.card_path("onmyoji", oid)
+                            break
+                if card:
+                    yield event.image_result(card)
+                    return
                 out = await handler(event, rest)
                 if out:
                     if prefix == "技能":
@@ -494,12 +519,20 @@ class YYSPlugin(Star):
         # 默认：短词=卡片，长句=LLM
         c, score = self.kb.find_char(msg)
         if c and len(msg) <= len(c["name"]) + 3:
-            yield event.plain_result(self._truncate(self.kb.char_card(c)))
+            card = self.kb.card_path("char", c["id"])
+            if card:
+                yield event.image_result(card)
+            else:
+                yield event.plain_result(self._truncate(self.kb.char_card(c)))
             return
         if len(msg) <= 6:
             s, _ = self.kb.find_soul(msg)
             if s:
-                yield event.plain_result(self._truncate(self.kb.soul_text(s)))
+                card = self.kb.card_path("soul", s["id"])
+                if card:
+                    yield event.image_result(card)
+                else:
+                    yield event.plain_result(self._truncate(self.kb.soul_text(s)))
                 return
         ans = await self._llm_answer(event, msg)
         if ans:
@@ -741,7 +774,11 @@ class YYSPlugin(Star):
         if not c:
             yield event.plain_result("格式：/式神 天照")
             return
-        yield event.plain_result(self._truncate(self.kb.char_card(c)))
+        card = self.kb.card_path("char", c["id"])
+        if card:
+            yield event.image_result(card)
+        else:
+            yield event.plain_result(self._truncate(self.kb.char_card(c)))
 
     @filter.command("御魂")
     async def yuhun_cmd(self, event: AstrMessageEvent):
@@ -752,7 +789,11 @@ class YYSPlugin(Star):
         if not s:
             yield event.plain_result("格式：/御魂 破势")
             return
-        yield event.plain_result(self._truncate(self.kb.soul_text(s)))
+        card = self.kb.card_path("soul", s["id"])
+        if card:
+            yield event.image_result(card)
+        else:
+            yield event.plain_result(self._truncate(self.kb.soul_text(s)))
 
     @filter.command("满暴")
     async def manbao_cmd(self, event: AstrMessageEvent):
@@ -794,7 +835,8 @@ class YYSPlugin(Star):
             return
         if out:
             reply, imgs = out if isinstance(out, tuple) else (out, [])
-            yield event.plain_result(reply)
+            if reply:
+                yield event.plain_result(reply)
             for p in imgs or []:
                 try:
                     yield event.image_result(p)

@@ -29,10 +29,13 @@ python tools/merge_onmyoji.py
 python tools/download_images.py     # 下载 S_/Skin_/御魂图到 tools/img/
 python tools/build_index.py         # 生成 data/image_index.json
 
-# 5. 大神最新动态（可选，输出 tools/ds_cache.json）
+# 5. 生成式神/御魂/阴阳师图卡（可选，输出 data/cards/）
+python tools/build_cards.py --img-dir tools/img
+
+# 6. 大神最新动态（可选，输出 tools/ds_cache.json）
 python tools/fetch_ds.py 6
 
-# 6. 本地冒烟测试（stub 掉 astrbot）
+# 7. 本地冒烟测试（stub 掉 astrbot）
 python tools/test_local.py
 ```
 

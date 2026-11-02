@@ -235,6 +235,10 @@ class KB:
             "note": "通用辅助思路，具体看技能机制。",
         }
 
+    def card_path(self, kind, ident):
+        p = os.path.join(DATA_DIR, "cards", "%s_%s.png" % (kind, ident))
+        return p if os.path.exists(p) else ""
+
     def char_card(self, c, with_rec=True):
         lines = ["【%s %s】%s" % (c.get("rarity") or "", c["name"], self.stats_line(c))]
         lines.append(self.role_line(c))
