@@ -1,0 +1,164 @@
+{
+  "group_whitelist": {
+    "description": "启用的QQ群号（白名单）",
+    "type": "list",
+    "default": [],
+    "hint": "留空 = 不启用任何群。第一次使用请点“添加”填自己的群号，或让管理员在群里发 /yys 加群 群号。"
+  },
+  "passive_mode": {
+    "description": "群内自动应答模式",
+    "type": "string",
+    "default": "keyword",
+    "options": [
+      "keyword",
+      "off"
+    ],
+    "labels": [
+      "关键词自动应答",
+      "关闭（只用指令）"
+    ],
+    "hint": "keyword：消息命中阴阳师关键词、式神名或@机器人时自动回答；off：只响应 /yys 等指令。"
+  },
+  "passive_keywords": {
+    "description": "触发自动应答的关键词",
+    "type": "list",
+    "default": [
+      "阴阳师",
+      "御魂",
+      "式神",
+      "满暴",
+      "满爆",
+      "暴击",
+      "暴伤",
+      "配装",
+      "怎么带",
+      "带什么",
+      "毕业",
+      "面板",
+      "阵容",
+      "克制",
+      "斗技",
+      "逢魔",
+      "魂十",
+      "魂十一",
+      "魂十二",
+      "觉醒",
+      "业原火",
+      "契灵",
+      "值得练",
+      "怎么养",
+      "6号位",
+      "二号位",
+      "四号位",
+      "御魂搭配",
+      "满技能",
+      "攻略",
+      "配置",
+      "大神",
+      "魂土",
+      "魂王",
+      "真蛇",
+      "地鬼",
+      "道馆",
+      "封魔",
+      "魂B",
+      "魂玉",
+      "六道",
+      "秘闻",
+      "下海",
+      "困28"
+    ],
+    "hint": "消息里出现任意一个词就会尝试回答。建议保留默认，按群氛围增删。"
+  },
+  "passive_cooldown": {
+    "description": "自动应答冷却（秒）",
+    "type": "int",
+    "default": 6,
+    "slider": {
+      "min": 0,
+      "max": 120,
+      "step": 1
+    },
+    "hint": "同一群两次自动回答的最小间隔，避免刷屏。"
+  },
+  "enable_image": {
+    "description": "启用图片识别",
+    "type": "bool",
+    "default": true,
+    "hint": "群友发式神/御魂截图时自动识别。"
+  },
+  "enable_vision": {
+    "description": "本地匹配失败时调用视觉模型",
+    "type": "bool",
+    "default": true,
+    "hint": "使用 AstrBot 当前对话模型的多模态能力识别图片；关闭后只做本地图标匹配。"
+  },
+  "max_reply_chars": {
+    "description": "单条回复最大字数",
+    "type": "int",
+    "default": 900,
+    "slider": {
+      "min": 200,
+      "max": 2000,
+      "step": 50
+    }
+  },
+  "allow_private": {
+    "description": "允许私聊使用",
+    "type": "bool",
+    "default": true,
+    "hint": "私聊通常用于测试，正式群聊仍受白名单限制。"
+  },
+  "quick_card": {
+    "description": "简单查询直接回卡片",
+    "type": "bool",
+    "default": true,
+    "hint": "问“天照”这类短查询时直接输出面板卡片，速度更快、更稳定。"
+  },
+  "enable_ds": {
+    "description": "启用网易大神攻略检索",
+    "type": "bool",
+    "default": true,
+    "hint": "问配置/攻略时去 ds.163.com 搜最新图文攻略，并转发攻略图片。"
+  },
+  "ds_max_images": {
+    "description": "每条攻略最多转发几张图",
+    "type": "int",
+    "default": 2,
+    "slider": {
+      "min": 0,
+      "max": 4,
+      "step": 1
+    },
+    "hint": "设为 0 则只转发文字。"
+  },
+  "ds_guide_days": {
+    "description": "攻略时效（天）",
+    "type": "int",
+    "default": 400,
+    "slider": {
+      "min": 30,
+      "max": 1200,
+      "step": 10
+    },
+    "hint": "超过这个天数的攻略降权，避免推荐老配置。"
+  },
+  "ds_cookie": {
+    "description": "大神 Cookie（可选，游客被拒时用）",
+    "type": "string",
+    "default": "",
+    "secret": true,
+    "hint": "若大神接口提示需要登录，可把浏览器登录后的 Cookie 粘贴到这里；或使用 /yys 大神登录 扫码。"
+  },
+  "ds_max_qr": {
+    "description": "每条攻略最多生成几张阵容码二维码",
+    "type": "int",
+    "default": 2,
+    "slider": {
+      "min": 0,
+      "max": 4,
+      "step": 1
+    },
+    "hint": "有阵容码时优先发二维码；设为 0 则只发文字阵容码。"
+  }
+}

@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.venv/
+venv/
+
+# 编辑器
+.vscode/
+.idea/
+.DS_Store
+
+# 抓取/构建产物
+tools/raw/
+tools/img/
+tools/stub/
+tools/ds_cache.json
+tools/*.log
+
+# 运行时数据（Cookie、缓存图片）
+data/ds_img/
+ds_cookie.txt
+ds_recent.json
+*.log
+
+# 发布包
+dist/
+*.zip
