@@ -1,0 +1,43 @@
+# 数据与文档许可（CC BY-NC-SA 3.0）
+
+本仓库中 **数据与整理文档** 采用
+[知识共享 署名-非商业性使用-相同方式共享 3.0 未本地化版本（CC BY-NC-SA 3.0）](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh)
+协议。
+
+适用范围：
+
+- `data/characters.json`、`data/souls.json`、`data/onmyoji.json`
+- `data/mechanics.md`、`data/recommend.json`、`data/image_index.json`
+- `data/cards/` 中由本项目整理的文字内容
+- `docs/` 下的整理文字
+
+## 署名（BY）
+
+数据整理自 **阴阳师灰机 wiki**：<https://yys.huijiwiki.com/>
+原文作者为灰机 wiki 的贡献者；本项目由 **yys-bot**（`deepseek-v4.1flash-1017` 模型生成）
+对原始数据进行了**结构化整理、裁剪与重新排版**，并补充了机制说明与配装建议。
+
+转载或再分发时请保留：
+
+1. 上述来源链接；
+2. “本项目进行了修改”的说明；
+3. 本许可的链接。
+
+## 非商业性使用（NC）
+
+不得将上述数据/文档用于商业目的（包括付费插件、付费问答、广告变现等）。
+本项目本身免费开源，不收取任何费用。
+
+## 相同方式共享（SA）
+
+基于上述数据/文档创作的衍生作品，必须以 **CC BY-NC-SA 3.0** 或与之兼容的协议发布。
+
+## 不适用范围
+
+- **游戏图片、立绘、御魂图、技能原文**：版权归网易（杭州）网络有限公司，
+  不属于 CC 授权范围，见 [NOTICE](../NOTICE)。
+- **代码**：`*.py`、`tools/*.js` 等代码文件采用 MIT，见 [LICENSE](../LICENSE)。
+
+## 许可全文
+
+<https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode>

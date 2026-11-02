@@ -294,4 +294,14 @@ python tools/test_local.py
 
 ## License
 
-代码以 MIT 协议开源；引用的游戏数据/图片/攻略遵循其原始版权与 CC BY-NC-SA 3.0 等协议，详见 [NOTICE](NOTICE)。
+| 内容 | 协议 |
+| --- | --- |
+| 代码（`*.py`、`tools/*.js`） | [MIT](LICENSE) |
+| 数据与整理文档（`data/`、`docs/`、图卡文字） | [CC BY-NC-SA 3.0](LICENSE-DATA) |
+| 游戏立绘/御魂图/技能原文 | 版权归网易，非商业展示，不属于 CC 授权 |
+| 大神攻略 | 版权归原作者，运行时检索展示 |
+
+- 数据来源：阴阳师灰机 wiki（https://yys.huijiwiki.com/），作者为 wiki 贡献者；
+  本项目进行了结构化整理与修改。
+- 本项目由 `deepseek-v4.1flash-1017` 生成，免费非商业。
+- 详细版权审计见 [docs/版权与许可.md](docs/版权与许可.md)。

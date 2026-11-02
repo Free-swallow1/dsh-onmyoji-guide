@@ -24,8 +24,10 @@ GOLD = (214, 178, 110)
 TEXT = (233, 229, 221)
 SUB = (163, 156, 148)
 
-FONT = "C:/Windows/Fonts/msyh.ttc"
-FONTB = "C:/Windows/Fonts/msyhbd.ttc"
+FONT = os.environ.get("CARD_FONT", "C:/Windows/Fonts/msyh.ttc")
+FONTB = os.environ.get("CARD_FONT_BOLD", "C:/Windows/Fonts/msyhbd.ttc")
+# 建议使用 OFL 字体重新生成，例如 Noto Sans CJK SC：
+#   CARD_FONT=NotoSansCJKsc-Regular.otf CARD_FONT_BOLD=NotoSansCJKsc-Bold.otf
 
 
 def f(size, bold=False):
