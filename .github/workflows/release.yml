@@ -20,7 +20,7 @@ jobs:
         run: |
           set -e
           mkdir -p dist/astrbot_plugin_yys
-          cp main.py yys_*.py metadata.yaml _conf_schema.json requirements.txt logo.png README.md LICENSE NOTICE dist/astrbot_plugin_yys/
+          cp main.py yys_*.py metadata.yaml _conf_schema.json requirements.txt logo.png README.md LICENSE LICENSE-DATA NOTICE CHANGELOG.md CONTRIBUTING.md dist/astrbot_plugin_yys/
           cp -r data docs dist/astrbot_plugin_yys/
           cd dist
           zip -r astrbot_plugin_yys.zip astrbot_plugin_yys
