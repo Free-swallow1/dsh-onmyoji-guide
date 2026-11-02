@@ -75,7 +75,7 @@
 
 ## DeepSeek Harness 插件
 
-仓库里的 `dsh/` 是 DeepSeek Harness（Cordis）插件包，和 AstrBot 插件共用 `data/`：
+仓库里的 `dsh/` 是 DeepSeek Harness（Cordis）插件包 **dsh-Onmyoji-Guide**，和 AstrBot 插件共用 `data/`：
 
 - `yys_lookup`：式神/御魂/阴阳师资料
 - `yys_skills`：完整技能
@@ -83,7 +83,7 @@
 - `yys_guide`：网易大神最新攻略（优先阵容码）
 - `yys_card`：介绍图卡路径
 
-安装：在 DSH 插件管理里安装 `dsh/` 目录，或 `plugin_manager install_bundle target=<仓库路径>/dsh`。
+安装：在 DSH 插件管理里安装 `dsh/` 目录，或 `plugin_manager install_bundle target=<仓库路径>/dsh`（包名 `dsh-onmyoji-guide`，显示名 `dsh-Onmyoji-Guide`）。
 详见 [dsh/README.md](dsh/README.md)。
 
 ## 安装

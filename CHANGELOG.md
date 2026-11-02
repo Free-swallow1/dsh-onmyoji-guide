@@ -3,6 +3,7 @@
 ## 1.0.2 (2026-11-02)
 
 - 新增 DeepSeek Harness 插件（`dsh/`）：yys_lookup / yys_skills / yys_calc / yys_guide / yys_card
+- DSH 插件包名 `dsh-onmyoji-guide`，显示名 `dsh-Onmyoji-Guide`
 - 与 AstrBot 插件共用同一份 `data/` 知识库与图卡
 
 ## 1.0.1 (2026-11-02)

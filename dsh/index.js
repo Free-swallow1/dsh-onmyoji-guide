@@ -9,7 +9,7 @@
 import { readFileSync, existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
-export const name = 'yys'
+export const name = 'onmyoji-guide'
 export const inject = ['tools']
 
 const HERE = fileURLToPath(new URL('.', import.meta.url))

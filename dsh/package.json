@@ -1,9 +1,9 @@
 {
-  "name": "dsh-plugin-yys",
+  "name": "dsh-onmyoji-guide",
   "version": "1.0.2",
   "private": true,
   "type": "module",
-  "description": "阴阳师助手：式神/御魂/阴阳师查询、满暴计算、大神攻略检索（DeepSeek Harness 插件）",
+  "description": "阴阳师助手 dsh-Onmyoji-Guide：式神/御魂/阴阳师查询、满暴计算、大神攻略检索（DeepSeek Harness 插件）",
   "license": "MIT",
   "exports": {
     ".": "./index.js",

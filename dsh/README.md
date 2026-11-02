@@ -1,4 +1,4 @@
-# 阴阳师助手 · DeepSeek Harness 插件
+# dsh-Onmyoji-Guide · DeepSeek Harness 插件
 
 在 DeepSeek Harness 里提供《阴阳师》查询能力，与仓库根目录的 AstrBot 插件共用同一份 `data/` 知识库。
 
@@ -20,7 +20,7 @@
 plugin_manager install_bundle target = <仓库绝对路径>/dsh
 ```
 
-安装后插件名为 `dsh-plugin-yys`，工具会出现在可用工具列表里。
+安装后插件名为 `dsh-onmyoji-guide`（显示名 dsh-Onmyoji-Guide），工具会出现在可用工具列表里。
 
 ## 数据
 

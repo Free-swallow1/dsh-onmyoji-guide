@@ -1,4 +1,4 @@
 - insert:
-    - id: yys
-      name: dsh-plugin-yys
+    - id: onmyoji-guide
+      name: dsh-onmyoji-guide
       config: {}
