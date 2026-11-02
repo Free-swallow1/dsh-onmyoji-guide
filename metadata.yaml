@@ -4,7 +4,7 @@ desc: 阴阳师（Onmyoji）群聊助手：277 个式神/技能、70 个御魂�
 short_desc: 阴阳师群答疑：查式神、算满暴、搜大神攻略、看图识别
 author: yys-bot
 version: 1.0.2
-repo: https://github.com/your-name/yys
+repo: https://github.com/Free-swallow1/dsh-onmyoji-guide
 astrbot_version: ">=4.0.0"
 support_platforms:
   - aiocqhttp
