@@ -1,0 +1,4 @@
+- insert:
+    - id: yys
+      name: dsh-plugin-yys
+      config: {}

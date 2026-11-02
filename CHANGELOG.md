@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2 (2026-11-02)
+
+- 新增 DeepSeek Harness 插件（`dsh/`）：yys_lookup / yys_skills / yys_calc / yys_guide / yys_card
+- 与 AstrBot 插件共用同一份 `data/` 知识库与图卡
+
 ## 1.0.1 (2026-11-02)
 
 - 新增式神/御魂/阴阳师**图卡**（353 张，存于 `data/cards/`）：面板 + 技能 + 词条 + 御魂参考，暗色卡片样式

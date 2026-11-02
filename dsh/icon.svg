@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Onmyoji Helper">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#241d33"/>
+      <stop offset="1" stop-color="#14101d"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="48" fill="url(#bg)"/>
+  <circle cx="128" cy="128" r="86" fill="none" stroke="#d6b26e" stroke-width="8"/>
+  <circle cx="128" cy="128" r="72" fill="none" stroke="#6e5b3c" stroke-width="3"/>
+  <path d="M128 56a72 72 0 0 1 0 144 36 36 0 0 0 0-72 36 36 0 0 1 0-72z" fill="#d6b26e"/>
+  <circle cx="128" cy="92" r="9" fill="#d6b26e"/>
+  <circle cx="128" cy="164" r="9" fill="#14101d"/>
+  <circle cx="128" cy="92" r="4" fill="#14101d"/>
+  <circle cx="128" cy="164" r="4" fill="#d6b26e"/>
+</svg>
