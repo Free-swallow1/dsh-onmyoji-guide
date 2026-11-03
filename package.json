@@ -1,6 +1,6 @@
 {
   "name": "dsh-onmyoji-guide",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "type": "module",
   "description": "Onmyoji helper for DeepSeek Harness: shikigami/soul lookup, crit and panel math, NetEase Dashen guide search, intro cards.",

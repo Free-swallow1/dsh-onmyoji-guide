@@ -38,11 +38,34 @@ import yys_ds  # noqa: E402
 
 DEFAULT_GROUPS = []
 DEFAULT_KEYWORDS = [
-    "阴阳师", "御魂", "式神", "满暴", "满爆", "暴击", "暴伤", "配装", "怎么带",
-    "带什么", "毕业", "面板", "阵容", "克制", "斗技", "逢魔", "魂十", "魂十一",
-    "魂十二", "觉醒", "业原火", "契灵", "黑话", "值得练", "怎么养", "6号位", "攻略", "配置", "大神", "魂土", "魂王", "真蛇", "地鬼", "道馆", "封魔", "魂B", "魂玉", "六道", "秘闻", "下海", "困28", "阵容",
-    "四号位", "二号位", "二号位", "速度", "命中", "抵抗",
+    "阴阳师", "痒痒鼠", "御魂", "式神", "满暴", "满爆", "暴击", "暴伤", "配装",
+    "毕业", "面板", "阵容", "克制", "斗技", "逢魔", "魂十", "魂十一", "魂十二",
+    "觉醒", "业原火", "契灵", "值得练", "怎么养", "6号位", "魂土", "魂王", "真蛇",
+    "地鬼", "道馆", "封魔", "魂B", "魂玉", "六道", "秘闻", "下海", "困28",
+    "四号位", "二号位", "针女", "破势", "狂骨", "招财", "火灵", "蚌精", "地藏",
+    "树妖", "薙魂", "魅妖", "日女", "返魂香", "网切", "伤魂鸟", "心眼", "狰",
+    "鸣屋", "阴摩罗", "被服", "珍珠", "雪幽魂", "钟灵", "反枕", "木魅",
 ]
+
+# 这些词太泛，旧配置里即使有也一律不触发被动回复（避免“改配置”被当成游戏提问）
+BAD_KEYWORDS = {"配置", "设置", "速度", "命中", "抵抗", "攻略", "大神", "版本", "更新", "插件"}
+
+# 管理/配置类意图：命中任意一个就不做被动回复，把消息留给主机器人/其他插件
+META_WORDS = (
+    "配置", "设置", "插件", "管理员", "机器人", "模型", "提示词", "人格", "记忆",
+    "重启", "安装", "卸载", "权限", "白名单", "黑名单", "禁言", "撤回", "群主",
+    "群管", "本群", "群号", "部署", "日志", "报错", "接口", "密钥",
+    "token", "api", "key", "prompt", "系统提示", "换模型", "改一下", "帮我改",
+    "调一下", "改配置", "发消息", "指令", "命令",
+)
+
+# 明确的提问/求建议语气；没有这些词时，被动回复一律不触发
+INTENT_WORDS = (
+    "?", "？", "怎么", "多少", "为什么", "吗", "如何", "值不值", "哪个", "比较",
+    "带什么", "怎么带", "配装", "搭配", "毕业", "面板", "满暴", "满爆", "攻略",
+    "阵容", "克制", "值得", "练吗", "养吗", "打不过", "过不去", "推荐", "强不强",
+    "好用", "要不要", "有没有", "怎么样", "求配", "求阵容", "问一下", "请问",
+)
 
 HELP_TEXT = (
     "阴阳师助手用法：\n"
@@ -272,33 +295,52 @@ class YYSPlugin(Star):
         return None
 
     def _should_passive(self, event, text, has_image):
+        """被动回复的准入条件：只接“明确在问阴阳师”的消息。
+
+        原则：默认不插话；管理/配置/闲聊一律放行给主机器人，
+        避免“帮我改配置”这类消息被当成游戏提问。
+        """
         if has_image:
             return True
         if self._cfg("passive_mode", "keyword") == "off":
             return False
-        if event.is_at_or_wake_command:
-            return True
         if not text:
             return False
-        if len(text) > 200:
+        if len(text) > 120:
             return False
         if str(event.get_sender_id()) == str(event.get_self_id()):
             return False
+
+        low = text.lower()
+        # 0) 去掉 @ 前缀后再判断
+        text = re.sub(r"^(@\S+\s*)+", "", text).strip()
+        if not text:
+            return False
+        # 1) 管理/配置类意图，直接让路
+        if any(w in low for w in META_WORDS):
+            return False
+
+        chars, souls = self.kb.mentions(text)
+        scenario = yys_kb.find_scenario(self.kb, text)
         kws = self._cfg("passive_keywords", DEFAULT_KEYWORDS) or []
-        if any(k and k in text for k in kws):
-            return True
-        # 群里只发一个式神/御魂名字，也当作查询
-        if len(text) <= 8:
+        hit_kw = any(k and k not in BAD_KEYWORDS and k in text for k in kws)
+
+        # 2) 只发一个式神/御魂名：当作查询，回图卡
+        if len(text) <= 8 and not any(x in text for x in ("?", "？", "怎么", "吗")):
             c, sc = self.kb.find_char(text)
-            if c and sc >= 0.8:
+            if c and sc >= 0.9 and len(text) <= len(c["name"]) + 1:
                 return True
             s2, sc2 = self.kb.find_soul(text)
-            if s2 and sc2 >= 0.8:
+            if s2 and sc2 >= 0.9 and len(text) <= len(s2["name"]) + 1:
                 return True
-        chars, souls = self.kb.mentions(text)
-        if (chars or souls) and any(w in text for w in ("?", "？", "怎么", "带", "配", "值", "用", "打", "克", "强", "练", "养", "毕业", "面板", "阵容")):
-            return True
-        return False
+
+        # 3) 必须像提问/求建议
+        if not any(w in text for w in INTENT_WORDS):
+            return False
+
+        # 4) 必须有明确的游戏对象或术语；@ 也不例外
+        return bool(chars or souls or scenario or hit_kw
+                    or "阴阳师" in text or "痒痒鼠" in text or "yys" in low)
 
     def _parse_guide_subject(self, text):
         """解析 '/yys 攻略 xxx' 的查询对象：式神 + 玩法/副本名。"""
@@ -811,6 +853,8 @@ class YYSPlugin(Star):
     async def on_all_message(self, event: AstrMessageEvent):
         """群内自然语言问答与图片识别"""
         text = (event.message_str or "").strip()
+        # 去掉开头的 @机器人 前缀，避免 “@bot 天照” 被当成普通句子
+        text = re.sub(r"^(@\S+\s*)+", "", text).strip()
         if text.startswith(("/", "／")):
             return
         # 已被指令解析的消息交给指令 handler，避免重复回复
@@ -842,8 +886,7 @@ class YYSPlugin(Star):
                     yield event.image_result(p)
                 except Exception as e:
                     logger.warning("发送攻略图片失败：%s", e)
-            if event.is_at_or_wake_command:
-                event.stop_event()
+            # 不 stop_event，避免抢掉主机器人/其他插件的指令
 
     async def terminate(self):
         logger.info("阴阳师插件已卸载")
